@@ -53,3 +53,14 @@ Proyecto ASP.NET Core en .NET 10 que actúa como punto de entrada de la aplicació
 
 Esta estructura permite que el código sea modular, testable y fácilmente extensible, facilitando la colaboración en equipos grandes y el mantenimiento a largo plazo.
 
+# Documentación
+
+## Uso de Scaffold-DbContext
+El comando `Scaffold-DbContext` se utiliza en proyectos basados en Entity Framework Core para generar automáticamente las clases de entidad y el contexto de base de datos a partir de una base de datos existente. Este proceso es útil cuando se adopta un enfoque de desarrollo basado en la base de datos.
+
+### **Comando Utilizado**
+```bash
+Scaffold-DbContext 'Name=DefaultConnection' Microsoft.EntityFrameworkCore.SqlServer -OutputDir ../FiscalFlow.Domain/Entities -ContextDir ../FiscalFlow.Infrastructure/Persistence/Data -Context AppDbContext -DataAnnotations -Force 
+Scaffold-DbContext 'Data Source=Fernando-Book\SQLSERVER;Initial Catalog=FiscalFlow;Persist Security Info=True;User ID=sa;Password=123;TrustServerCertificate=True' Microsoft.EntityFrameworkCore.SqlServer -OutputDir ../FiscalFlow.Domain/Entities -ContextDir ../FiscalFlow.Infrastructure/Persistence/Data -Context AppDbContext -DataAnnotations -Force
+```
+
