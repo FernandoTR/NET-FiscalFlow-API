@@ -60,7 +60,8 @@ El comando `Scaffold-DbContext` se utiliza en proyectos basados en Entity Framew
 
 ### **Comando Utilizado**
 ```bash
-Scaffold-DbContext 'Name=DefaultConnection' Microsoft.EntityFrameworkCore.SqlServer -OutputDir ../FiscalFlow.Domain/Entities -ContextDir ../FiscalFlow.Infrastructure/Persistence/Data -Context AppDbContext -DataAnnotations -Force 
+Scaffold-DbContext 'Name=DefaultConnection' Microsoft.EntityFrameworkCore.SqlServer -OutputDir ../FiscalFlow.Domain/Entities -ContextDir ../FiscalFlow.Infrastructure/Persistence/Data -Context AppDbContext -Force 
+
 
 ```
 

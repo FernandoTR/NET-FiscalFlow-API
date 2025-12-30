@@ -10,9 +10,12 @@ public partial class AppDbContext
 {
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
     {
+        // Apply all configurations from the current assembly
+        //modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
         // Configurar la clase como entidad sin clave
         //modelBuilder.Entity<GetMenuByUserIdDto>().HasNoKey();
-       
+
 
     }
 }
