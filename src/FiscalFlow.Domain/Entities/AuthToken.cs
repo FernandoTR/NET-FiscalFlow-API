@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiscalFlow.Infrastructure;
+namespace FiscalFlow.Domain;
 
 [Index("Token", Name = "UQ__AuthToke__1EB4F8179ABCEE5B", IsUnique = true)]
 public partial class AuthToken

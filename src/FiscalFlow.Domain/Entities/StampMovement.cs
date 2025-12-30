@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiscalFlow.Infrastructure;
+namespace FiscalFlow.Domain;
 
 [Table("StampMovement")]
 public partial class StampMovement

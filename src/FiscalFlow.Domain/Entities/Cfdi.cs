@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiscalFlow.Infrastructure;
+namespace FiscalFlow.Domain;
 
 [Table("Cfdi")]
 [Index("Uuid", Name = "UQ__Cfdi__BDA103F437D13CE2", IsUnique = true)]

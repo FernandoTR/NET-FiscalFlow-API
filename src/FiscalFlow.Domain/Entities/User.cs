@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiscalFlow.Infrastructure;
+namespace FiscalFlow.Domain;
 
 [Index("Username", Name = "UQ__Users__536C85E45AF31EEF", IsUnique = true)]
 public partial class User

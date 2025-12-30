@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FiscalFlow.Infrastructure;
+using FiscalFlow.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscalFlow.Infrastructure.Persistence.Data;
