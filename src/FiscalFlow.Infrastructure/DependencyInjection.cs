@@ -1,4 +1,6 @@
-﻿using FiscalFlow.Domain.Interfaces;
+﻿using FiscalFlow.Application.Interfaces;
+using FiscalFlow.Domain.Interfaces;
+using FiscalFlow.Infrastructure.Logging;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using FiscalFlow.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +23,7 @@ public static class DependencyInjection
         // Repository
         builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         builder.Services.AddScoped<IUserRepository, UserRepository>();
-
+        builder.Services.AddScoped<ILogService, LogService>();
 
 
     }
