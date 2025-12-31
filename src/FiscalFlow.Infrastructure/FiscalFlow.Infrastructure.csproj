@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Email\" />
+    <Folder Include="Persistence\Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

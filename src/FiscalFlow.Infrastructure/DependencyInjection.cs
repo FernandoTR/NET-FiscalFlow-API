@@ -3,6 +3,7 @@ using FiscalFlow.Domain.Interfaces;
 using FiscalFlow.Infrastructure.Logging;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using FiscalFlow.Infrastructure.Persistence.Repositories;
+using FiscalFlow.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,11 @@ public static class DependencyInjection
         builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ILogService, LogService>();
+
+        // Security
+        builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+        builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+        builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 
 
     }
