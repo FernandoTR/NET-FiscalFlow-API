@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <Folder Include="Email\" />
+    <Folder Include="XmlSchemas\CFDI\" />
+    <Folder Include="XmlSchemas\TimbreFiscal\" />
+    <Folder Include="XmlValidation\" />
     <Folder Include="Persistence\Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>

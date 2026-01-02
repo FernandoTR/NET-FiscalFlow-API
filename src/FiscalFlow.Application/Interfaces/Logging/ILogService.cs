@@ -1,5 +1,4 @@
-﻿
-namespace FiscalFlow.Application.Interfaces;
+﻿namespace FiscalFlow.Application.Interfaces.Logging;
 
 public interface ILogService
 {

@@ -1,5 +1,10 @@
-﻿using FiscalFlow.Application.Interfaces;
-using FiscalFlow.Domain.Interfaces;
+﻿using FiscalFlow.Application.Interfaces.Auth;
+using FiscalFlow.Application.Interfaces.Logging;
+using FiscalFlow.Domain.Interfaces.Auth;
+using FiscalFlow.Domain.Interfaces.Certificates;
+using FiscalFlow.Domain.Interfaces.Cfdis;
+using FiscalFlow.Domain.Interfaces.Common;
+using FiscalFlow.Domain.Interfaces.Users;
 using FiscalFlow.Infrastructure.Logging;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using FiscalFlow.Infrastructure.Persistence.Repositories;
@@ -25,6 +30,10 @@ public static class DependencyInjection
         builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ILogService, LogService>();
+        builder.Services.AddScoped<IAuthTokenRepository, AuthTokenRepository>();
+        builder.Services.AddScoped<ICertificateRepository, CertificateRepository>();
+        builder.Services.AddScoped<ICfdiRepository, CfdiRepository>();
+
 
         // Security
         builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));

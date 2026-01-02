@@ -1,4 +1,5 @@
-﻿using FiscalFlow.Domain.Interfaces;
+﻿using FiscalFlow.Application.Interfaces.Logging;
+using FiscalFlow.Domain.Interfaces.Common;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,11 +9,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     private readonly AppDbContext _context;
     private readonly DbSet<T> _dbSet;
+    private readonly ILogService _logService;
 
-    public GenericRepository(AppDbContext context)
+    public GenericRepository(AppDbContext context,
+        ILogService logService)
     {
         _context = context;
         _dbSet = _context.Set<T>();
+        _logService = logService;
     }
 
     public async Task<T?> GetByIdAsync(int id)
@@ -55,7 +59,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            //_logService.ErrorLog(nameof(AddAsync), ex);
+            _logService.ErrorLog(nameof(AddAsync), ex);
             return false;
         }
     }
@@ -69,7 +73,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            //_logService.ErrorLog(nameof(UpdateAsync), ex);
+            _logService.ErrorLog(nameof(UpdateAsync), ex);
             return false;
         }
     }
@@ -87,7 +91,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
         catch (Exception ex)
         {
-            //_logService.ErrorLog(nameof(DeleteAsync), ex);
+            _logService.ErrorLog(nameof(DeleteAsync), ex);
             return false;
         }
     }

@@ -1,6 +1,4 @@
-﻿using FiscalFlow.Domain;
-
-namespace FiscalFlow.Domain.Interfaces;
+﻿namespace FiscalFlow.Domain.Interfaces.Common;
 
 public interface IGenericRepository<T> where T : class
 {

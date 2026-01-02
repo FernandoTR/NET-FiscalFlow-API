@@ -1,6 +1,6 @@
 ﻿using FiscalFlow.Domain;
 
-namespace FiscalFlow.Application.Interfaces;
+namespace FiscalFlow.Application.Interfaces.Auth;
 
 public interface IRefreshTokenService
 {

@@ -1,5 +1,5 @@
 ﻿using FiscalFlow.Application.DTOs;
-using FiscalFlow.Application.Interfaces;
+using FiscalFlow.Application.Interfaces.Auth;
 using FiscalFlow.Domain;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

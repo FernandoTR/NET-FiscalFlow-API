@@ -4,6 +4,30 @@
     <ProjectReference Include="..\FiscalFlow.Domain\FiscalFlow.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\Cfdis\" />
+    <Folder Include="Interfaces\Certificates\" />
+    <Folder Include="Interfaces\Batches\" />
+    <Folder Include="Interfaces\MassDownload\" />
+    <Folder Include="Interfaces\Common\" />
+    <Folder Include="Interfaces\Notifications\" />
+    <Folder Include="Interfaces\Stamping\" />
+    <Folder Include="Interfaces\Users\" />
+    <Folder Include="Interfaces\Security\" />
+    <Folder Include="Services\Cfdis\" />
+    <Folder Include="Services\Certificates\" />
+    <Folder Include="Services\Batches\" />
+    <Folder Include="Services\MassDownload\" />
+    <Folder Include="Services\Common\" />
+    <Folder Include="Services\Notifications\" />
+    <Folder Include="Services\Stamping\" />
+    <Folder Include="Services\Users\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
