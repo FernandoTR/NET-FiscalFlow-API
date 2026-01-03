@@ -1,9 +1,9 @@
-﻿using FiscalFlow.Application.DTOs;
+﻿using FiscalFlow.Application.DTOs.Auth;
 using FiscalFlow.Domain;
 
 namespace FiscalFlow.Application.Interfaces.Auth;
 
 public interface IJwtTokenService
 {
-    JwtTokenResult GenerateToken(User user);
+    JwtTokenDto GenerateToken(User user);
 }

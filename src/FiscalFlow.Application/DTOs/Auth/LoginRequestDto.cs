@@ -1,7 +1,7 @@
 ﻿
 namespace FiscalFlow.Application.DTOs.Auth;
 
-public record LoginRequestDto(
+public sealed record LoginRequestDto(
     string Email,
     string Password
 );

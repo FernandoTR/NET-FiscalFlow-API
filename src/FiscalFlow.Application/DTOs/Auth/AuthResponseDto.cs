@@ -1,7 +1,7 @@
 ﻿
 namespace FiscalFlow.Application.DTOs.Auth;
 
-public record TokenResponseDto(
+public sealed record AuthResponseDto(
      string AccessToken,
      string TokenType,
      DateTime IssuedAt,

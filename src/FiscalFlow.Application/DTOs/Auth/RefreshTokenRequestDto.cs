@@ -1,7 +1,7 @@
 ﻿
 namespace FiscalFlow.Application.DTOs.Auth;
 
-public record RefreshTokenRequestDto(
+public sealed record RefreshTokenRequestDto(
     string RefreshToken
 );
 

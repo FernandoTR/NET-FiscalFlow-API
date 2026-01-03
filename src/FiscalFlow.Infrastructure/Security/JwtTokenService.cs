@@ -1,4 +1,5 @@
 ﻿using FiscalFlow.Application.DTOs;
+using FiscalFlow.Application.DTOs.Auth;
 using FiscalFlow.Application.Interfaces.Auth;
 using FiscalFlow.Domain;
 using Microsoft.Extensions.Options;
@@ -18,7 +19,7 @@ public sealed class JwtTokenService : IJwtTokenService
         _options = options.Value;
     }
 
-    public JwtTokenResult GenerateToken(User user)
+    public JwtTokenDto GenerateToken(User user)
     {
         var issuedAt = DateTime.UtcNow;
         var expiresAt = issuedAt.AddMinutes(_options.ExpirationMinutes);
@@ -50,12 +51,12 @@ public sealed class JwtTokenService : IJwtTokenService
         var tokenString = new JwtSecurityTokenHandler()
             .WriteToken(token);
 
-        return new JwtTokenResult
-        {
-            AccessToken = tokenString,
-            IssuedAt = issuedAt,
-            ExpiresAt = expiresAt
-        };
+        return new JwtTokenDto(
+            AccessToken: tokenString,
+            TokenType: "Bearer",
+            IssuedAt: issuedAt,
+            ExpiresAt: expiresAt
+        );
     }
 
 
