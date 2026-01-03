@@ -1,8 +1,6 @@
 ﻿using FiscalFlow.Application.Interfaces.Auth;
 using FiscalFlow.Application.Interfaces.Logging;
 using FiscalFlow.Domain.Interfaces.Auth;
-using FiscalFlow.Domain.Interfaces.Certificates;
-using FiscalFlow.Domain.Interfaces.Cfdis;
 using FiscalFlow.Domain.Interfaces.Common;
 using FiscalFlow.Domain.Interfaces.Users;
 using FiscalFlow.Infrastructure.Logging;
@@ -25,20 +23,22 @@ public static class DependencyInjection
         // DataBase
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+        builder.Services.AddDbContext<LoggingDbContext>(options => options.UseSqlServer(connectionString));
 
         // Repository
         builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ILogService, LogService>();
         builder.Services.AddScoped<IAuthTokenRepository, AuthTokenRepository>();
-        builder.Services.AddScoped<ICertificateRepository, CertificateRepository>();
-        builder.Services.AddScoped<ICfdiRepository, CfdiRepository>();
 
 
         // Security
         builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
         builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
         builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+        builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 
     }
