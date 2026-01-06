@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace FiscalFlow.Application.DTOs.Cfdi;
+
+public class TrasladoGlobalDto
+{
+    public decimal Base { get; set; }
+    public decimal Importe { get; set; }
+    public string Impuesto { get; set; }
+    public decimal TasaOCuota { get; set; }
+    public string TipoFactor { get; set; }
+}

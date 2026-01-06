@@ -1,8 +1,12 @@
 using Asp.Versioning;
 using FiscalFlow.Application;
 using FiscalFlow.Infrastructure;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +38,29 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 // Authentication / Authorization
-builder.Services.AddAuthentication();
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = "FiscalFlow.API",
+            ValidAudience = "FiscalFlow.Client",
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("CAMBIA_ESTA_CLAVE_LARGA_Y_SEGURA")
+            )
+        };
+    });
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -49,6 +75,29 @@ if (app.Environment.IsDevelopment())
         //c.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
     });
 }
+
+// Global exception handling for validation errors (FluentValidation)
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception = context.Features
+            .Get<IExceptionHandlerFeature>()?.Error;
+
+        if (exception is ValidationException validationEx)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                errors = validationEx.Errors.Select(e => new
+                {
+                    field = e.PropertyName,
+                    message = e.ErrorMessage
+                })
+            });
+        }
+    });
+});
 
 app.UseHttpsRedirection();
 
