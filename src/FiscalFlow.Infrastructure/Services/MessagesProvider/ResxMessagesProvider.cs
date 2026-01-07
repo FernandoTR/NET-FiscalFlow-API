@@ -3,23 +3,23 @@ using FiscalFlow.Application.Interfaces.Message;
 using System.Reflection;
 using System.Resources;
 
-namespace FiscalFlow.Application.Services.Message;
+namespace FiscalFlow.Infrastructure.Services.MessagesProvider;
 
-public class MessageService : IMessageService
+public class ResxMessagesProvider : IMessagesProvider
 {
     private static readonly ResourceManager ErrorMessageResourceManager =
-         new ResourceManager("FiscalFlow.Application.Resources.ErrorMessage", Assembly.GetExecutingAssembly());
+         new ResourceManager("FiscalFlow.Infrastructure.Resources.ErrorMessage", Assembly.GetExecutingAssembly());
 
     private static readonly ResourceManager MessageResourceManager =
-        new ResourceManager("FiscalFlow.Application.Resources.Message", Assembly.GetExecutingAssembly());
+        new ResourceManager("FiscalFlow.Infrastructure.Resources.Message", Assembly.GetExecutingAssembly());
 
     private readonly ILogService _logService;
 
-    public MessageService(ILogService logService) { _logService = logService; }
+    public ResxMessagesProvider(ILogService logService) { _logService = logService; }
 
 
 
-    public string GetResourceError(string resourceName)
+    public string GetError(string resourceName)
     {
         try
         {
@@ -29,12 +29,12 @@ public class MessageService : IMessageService
         catch (Exception ex)
         {
             // Manejo de errores
-            _logService.ErrorLog("ResourceService.GetResourceError", ex);
+            _logService.ErrorLog("ResourceService.GetError", ex);
             return string.Empty;
         }
     }
 
-    public string GetResourceMessage(string resourceName)
+    public string GetMessage(string resourceName)
     {
         try
         {
@@ -44,7 +44,7 @@ public class MessageService : IMessageService
         catch (Exception ex)
         {
             // Manejo de errores
-            _logService.ErrorLog("ResourceService.GetResourceMessage", ex);
+            _logService.ErrorLog("ResourceService.GetMessage", ex);
             return string.Empty;
         }
     }

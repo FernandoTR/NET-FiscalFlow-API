@@ -8,12 +8,12 @@ namespace FiscalFlow.Application.Validators.Cfdi;
 public sealed class CreateCfdiUseCase : ICreateCfdiUseCase
 {
     private readonly IValidator<CreateCfdiRequestDto> _validator;
-    private readonly IMessageService _messageService;
+    private readonly IMessagesProvider _messagesProvider;
 
-    public CreateCfdiUseCase(IValidator<CreateCfdiRequestDto> validator, IMessageService messageService)
+    public CreateCfdiUseCase(IValidator<CreateCfdiRequestDto> validator, IMessagesProvider messagesProvider)
     {
         _validator = validator;
-        _messageService = messageService;
+        _messagesProvider = messagesProvider;
     }
 
     public async Task<CfdiResponseDto> ExecuteAsync(CreateCfdiRequestDto request, CancellationToken ct)
@@ -27,7 +27,7 @@ public sealed class CreateCfdiUseCase : ICreateCfdiUseCase
             return new CfdiErrorResponseDto()
             {
                 IsSuccess = false,
-                Message = _messageService.GetResourceError("InvalidCfdiStructure"),
+                Message = _messagesProvider.GetError("InvalidCfdiStructure"),
                 Errors = validationResult.Errors.Select(e => new
                 {
                     field = e.PropertyName,

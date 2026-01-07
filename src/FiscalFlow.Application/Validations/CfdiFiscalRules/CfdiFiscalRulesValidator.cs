@@ -8,12 +8,12 @@ namespace FiscalFlow.Application.Validations.CfdiFiscalRules;
 public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
 {
     private readonly ISatCatalogService _catalogService;
-    private readonly IMessageService _messageService;
+    private readonly IMessagesProvider _messagesProvider;
 
-    public CfdiFiscalRulesValidator(ISatCatalogService catalogs, IMessageService messageService)
+    public CfdiFiscalRulesValidator(ISatCatalogService catalogs, IMessagesProvider messagesProvider)
     {
         _catalogService = catalogs;
-        _messageService = messageService;
+        _messagesProvider = messagesProvider;
     }
 
     public async Task<IReadOnlyList<CfdiErrorDetailDto>> ValidateAsync(CreateCfdiRequestDto request, CancellationToken ct)
@@ -36,7 +36,7 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Comprobante.FormaPago",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Comprobante.FormaPago, "c_FormaPago")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Comprobante.FormaPago, "c_FormaPago")
             });              
 
 
@@ -44,7 +44,7 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Comprobante.MetodoPago",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Comprobante.MetodoPago, "c_MetodoPago")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Comprobante.MetodoPago, "c_MetodoPago")
             });
         
 
@@ -55,7 +55,7 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Comprobante.MetodoPago",
-                Message = string.Format(_messageService.GetResourceError("InvalidCatalogCombination"), "FormaPago", dto.Comprobante.FormaPago, "MetodoPago", dto.Comprobante.MetodoPago)
+                Message = string.Format(_messagesProvider.GetError("InvalidCatalogCombination"), "FormaPago", dto.Comprobante.FormaPago, "MetodoPago", dto.Comprobante.MetodoPago)
             });
         }
 
@@ -63,14 +63,14 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Comprobante.Moneda",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Comprobante.Moneda, "c_Moneda")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Comprobante.Moneda, "c_Moneda")
             });
 
         if (!await _catalogService.ExistsAsync("c_TipoDeComprobante", dto.Comprobante.TipoDeComprobante, ct))
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Comprobante.TipoDeComprobante",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Comprobante.TipoDeComprobante, "c_TipoDeComprobante")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Comprobante.TipoDeComprobante, "c_TipoDeComprobante")
             });
         
 
@@ -82,7 +82,7 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Emisor.RegimenFiscal",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Emisor.RegimenFiscal, "c_RegimenFiscal")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Emisor.RegimenFiscal, "c_RegimenFiscal")
             });
     }
 
@@ -92,14 +92,14 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Receptor.UsoCFDI",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Receptor.UsoCFDI, "c_UsoCFDI")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Receptor.UsoCFDI, "c_UsoCFDI")
             });
 
         if (!await _catalogService.ExistsAsync("c_RegimenFiscal",dto.Receptor.RegimenFiscalReceptor, ct))
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Receptor.RegimenFiscalReceptor",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Receptor.RegimenFiscalReceptor, "c_RegimenFiscal")
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Receptor.RegimenFiscalReceptor, "c_RegimenFiscal")
             });
        
 
@@ -113,7 +113,7 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Receptor.UsoCFDI",
-                Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), dto.Receptor.UsoCFDI, dto.Receptor.RegimenFiscalReceptor)
+                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Receptor.UsoCFDI, dto.Receptor.RegimenFiscalReceptor)
             });
         }
     }
@@ -126,21 +126,21 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
                 errors.Add(new CfdiErrorDetailDto
                 {
                     Field = $"Conceptos[{index}].ClaveProdServ",
-                    Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), concepto.ClaveProdServ, "c_ClaveProdServ")
+                    Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), concepto.ClaveProdServ, "c_ClaveProdServ")
                 });         
 
             if (!await _catalogService.ExistsAsync("c_ClaveUnidad", concepto.ClaveUnidad, ct))
                 errors.Add(new CfdiErrorDetailDto
                 {
                     Field = $"Conceptos[{index}].ClaveUnidad",
-                    Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), concepto.ClaveUnidad, "c_ClaveUnidad")
+                    Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), concepto.ClaveUnidad, "c_ClaveUnidad")
                 });
 
             if (!await _catalogService.ExistsAsync("c_ObjetoImp", concepto.ObjetoImp, ct))
                 errors.Add(new CfdiErrorDetailDto
                 {
                     Field = $"Conceptos[{index}].ObjetoImp",
-                    Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), concepto.ObjetoImp, "c_ObjetoImp")
+                    Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), concepto.ObjetoImp, "c_ObjetoImp")
                 });
 
         }
@@ -154,14 +154,14 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
                 errors.Add(new CfdiErrorDetailDto
                 {
                     Field = $"Impuestos.Traslados.Impuesto",
-                    Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), traslado.Impuesto, "c_Impuesto")
+                    Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), traslado.Impuesto, "c_Impuesto")
                 });
 
             if (!await _catalogService.ExistsAsync("c_TipoFactor", traslado.TipoFactor, ct))
                 errors.Add(new CfdiErrorDetailDto
                 {
                     Field = $"Impuestos.Traslados.TipoFactor",
-                    Message = string.Format(_messageService.GetResourceError("CatalogKeyNotFound"), traslado.TipoFactor, "c_TipoFactor")
+                    Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), traslado.TipoFactor, "c_TipoFactor")
                 });
         }
     }

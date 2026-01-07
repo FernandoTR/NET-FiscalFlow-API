@@ -18,17 +18,17 @@ public class CfdiController : Controller
     private readonly ICreateCfdiUseCase _createCfdiUseCase;
     private readonly ISatCatalogService _satCatalogService;
     private readonly ICfdiFiscalRulesValidator _fiscalRulesValidator;
-    private readonly IMessageService _messageService;
+    private readonly IMessagesProvider _messagesProvider;
 
     public CfdiController(ICreateCfdiUseCase createCfdiUseCase, 
                           ISatCatalogService satCatalogService, 
                           ICfdiFiscalRulesValidator cfdiFiscalRulesValidator,
-                          IMessageService messageService)
+                          IMessagesProvider messagesProvider)
     {
         _createCfdiUseCase = createCfdiUseCase;
         _satCatalogService = satCatalogService;
         _fiscalRulesValidator = cfdiFiscalRulesValidator;
-        _messageService = messageService;
+        _messagesProvider = messagesProvider;
     }
 
 
@@ -55,7 +55,7 @@ public class CfdiController : Controller
         {
             return BadRequest(new CfdiErrorResponseDto { 
                 IsSuccess=false, 
-                Message = _messageService.GetResourceError("FiscalValidationFailed"), 
+                Message = _messagesProvider.GetError("FiscalValidationFailed"), 
                 Errors = fiscalErrors
             });
         }
