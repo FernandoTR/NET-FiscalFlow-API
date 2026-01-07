@@ -22,7 +22,6 @@
     <Folder Include="XmlSchemas\TimbreFiscal\" />
     <Folder Include="XmlValidation\" />
     <Folder Include="Persistence\Migrations\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <PropertyGroup>

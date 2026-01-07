@@ -30,7 +30,10 @@ public static class DependencyInjection
         // Registrar casos de uso
         builder.Services.AddScoped<ICreateCfdiUseCase, CreateCfdiUseCase>();
         builder.Services.AddScoped<ISatCatalogService, SatCatalogService>();
+        builder.Services.AddScoped<SatCatalogService>();
         builder.Services.AddScoped<ICfdiFiscalRulesValidator, CfdiFiscalRulesValidator>();
+       
+
 
 
     }

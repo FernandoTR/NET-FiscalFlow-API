@@ -1,4 +1,5 @@
 ﻿using FiscalFlow.Application.Interfaces.Auth;
+using FiscalFlow.Application.Interfaces.Caching;
 using FiscalFlow.Application.Interfaces.Logging;
 using FiscalFlow.Domain.Interfaces.Auth;
 using FiscalFlow.Domain.Interfaces.Common;
@@ -8,6 +9,7 @@ using FiscalFlow.Infrastructure.Logging;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using FiscalFlow.Infrastructure.Persistence.Repositories;
 using FiscalFlow.Infrastructure.Security;
+using FiscalFlow.Infrastructure.Services.Caching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +42,8 @@ public static class DependencyInjection
         builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
 
-
+        // 
+        builder.Services.AddScoped<ISatCatalogWarmupService, SatCatalogWarmupService>();
 
     }
 

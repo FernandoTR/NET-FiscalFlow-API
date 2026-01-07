@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using FiscalFlow.API;
 using FiscalFlow.Application;
 using FiscalFlow.Infrastructure;
 using FluentValidation;
@@ -10,9 +11,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddMemoryCache();
+
 // Add services to the container.
 builder.AddApplicationServices();
 builder.AddInfrastructureServices();
+builder.AddWebServices();
 
 // Controllers
 builder.Services.AddControllers();
