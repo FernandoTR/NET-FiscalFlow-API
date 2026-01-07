@@ -2,6 +2,8 @@
 using FiscalFlow.Application.Interfaces.Caching;
 using FiscalFlow.Application.Interfaces.Logging;
 using FiscalFlow.Application.Interfaces.Message;
+using FiscalFlow.Application.Interfaces.SatCatalog;
+using FiscalFlow.Infrastructure.Services.SatCatalog;
 using FiscalFlow.Domain.Interfaces.Auth;
 using FiscalFlow.Domain.Interfaces.Common;
 using FiscalFlow.Domain.Interfaces.SatCatalog;
@@ -49,6 +51,8 @@ public static class DependencyInjection
 
         // 
         builder.Services.AddScoped<ISatCatalogWarmupService, SatCatalogWarmupService>();
+        builder.Services.AddScoped<ISatCatalogService, SatCatalogService>();
+        builder.Services.AddScoped<SatCatalogService>();
 
     }
 

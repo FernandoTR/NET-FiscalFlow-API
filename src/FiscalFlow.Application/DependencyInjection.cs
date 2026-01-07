@@ -1,8 +1,5 @@
 ﻿using FiscalFlow.Application.Interfaces.Cfdi;
-using FiscalFlow.Application.Interfaces.Message;
-using FiscalFlow.Application.Interfaces.SatCatalog;
 using FiscalFlow.Application.Interfaces.Validations;
-using FiscalFlow.Application.Services.SatCatalog;
 using FiscalFlow.Application.Validations.CfdiFiscalRules;
 using FiscalFlow.Application.Validators.Cfdi;
 using FluentValidation;
@@ -24,9 +21,7 @@ public static class DependencyInjection
         
 
         // Registrar casos de uso
-        builder.Services.AddScoped<ICreateCfdiUseCase, CreateCfdiUseCase>();
-        builder.Services.AddScoped<ISatCatalogService, SatCatalogService>();
-        builder.Services.AddScoped<SatCatalogService>();
+        builder.Services.AddScoped<ICreateCfdiUseCase, CreateCfdiUseCase>();        
         builder.Services.AddScoped<ICfdiFiscalRulesValidator, CfdiFiscalRulesValidator>();
        
 

@@ -1,5 +1,5 @@
 ﻿using FiscalFlow.Application.Interfaces.SatCatalog;
-using FiscalFlow.Application.Services.SatCatalog;
+using FiscalFlow.Infrastructure.Services.SatCatalog;
 using FiscalFlow.Infrastructure.Services.Hosting;
 using FiscalFlow.Infrastructure.Services.MemoryCache;
 using Microsoft.Extensions.Caching.Memory;

@@ -1,7 +1,7 @@
 ﻿using FiscalFlow.Application.Interfaces.SatCatalog;
 using FiscalFlow.Domain.Interfaces.SatCatalog;
 
-namespace FiscalFlow.Application.Services.SatCatalog;
+namespace FiscalFlow.Infrastructure.Services.SatCatalog;
 
 public sealed class SatCatalogService : ISatCatalogService
 {
