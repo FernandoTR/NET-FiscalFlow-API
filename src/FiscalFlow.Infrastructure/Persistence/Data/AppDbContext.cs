@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FiscalFlow.Domain;
+using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscalFlow.Infrastructure.Persistence.Data;
@@ -41,6 +42,12 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<MassDownloadFile> MassDownloadFiles { get; set; }
 
     public virtual DbSet<MassDownloadRequest> MassDownloadRequests { get; set; }
+
+    public virtual DbSet<SatCatalog> SatCatalogs { get; set; }
+
+    public virtual DbSet<SatCatalogItem> SatCatalogItems { get; set; }
+
+    public virtual DbSet<SatCatalogRule> SatCatalogRules { get; set; }
 
     public virtual DbSet<StampBalance> StampBalances { get; set; }
 

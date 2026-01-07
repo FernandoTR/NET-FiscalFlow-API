@@ -61,11 +61,56 @@ namespace FiscalFlow.Application.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La clave &apos;{0}&apos; del catálogo {1} se encuentra inactiva..
+        /// </summary>
+        internal static string CatalogKeyInactive {
+            get {
+                return ResourceManager.GetString("CatalogKeyInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La clave &apos;{0}&apos; no existe en el catálogo {1} del SAT..
+        /// </summary>
+        internal static string CatalogKeyNotFound {
+            get {
+                return ResourceManager.GetString("CatalogKeyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El certificado del emisor se encuentra vencido..
+        /// </summary>
+        internal static string CertificateExpired {
+            get {
+                return ResourceManager.GetString("CertificateExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se encontró un certificado válido para el RFC del emisor..
+        /// </summary>
+        internal static string CertificateNotFound {
+            get {
+                return ResourceManager.GetString("CertificateNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El certificado del emisor ha sido revocado..
         /// </summary>
         internal static string CertificateRevoked {
             get {
                 return ResourceManager.GetString("CertificateRevoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El RFC del certificado no coincide con el RFC del emisor..
+        /// </summary>
+        internal static string CertificateRfcMismatch {
+            get {
+                return ResourceManager.GetString("CertificateRfcMismatch", resourceCulture);
             }
         }
         
@@ -97,11 +142,38 @@ namespace FiscalFlow.Application.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se detectaron errores fiscales que impiden timbrar el CFDI..
+        /// </summary>
+        internal static string FiscalValidationFailed {
+            get {
+                return ResourceManager.GetString("FiscalValidationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Lo sentimos ocurrió un error, favor de esperar un momento e intentar de nuevo..
         /// </summary>
         internal static string GenericError {
             get {
                 return ResourceManager.GetString("GenericError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No hay saldo de timbres disponible para realizar el timbrado..
+        /// </summary>
+        internal static string InsufficientStampBalance {
+            get {
+                return ResourceManager.GetString("InsufficientStampBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La combinación de {0} &apos;{1}&apos; con {2} &apos;{3}&apos; no está permitida por el SAT..
+        /// </summary>
+        internal static string InvalidCatalogCombination {
+            get {
+                return ResourceManager.GetString("InvalidCatalogCombination", resourceCulture);
             }
         }
         
@@ -124,6 +196,15 @@ namespace FiscalFlow.Application.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La moneda &apos;{0}&apos; no existe en el catálogo c_Moneda..
+        /// </summary>
+        internal static string InvalidCurrency {
+            get {
+                return ResourceManager.GetString("InvalidCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El sello digital del comprobante es inválido..
         /// </summary>
         internal static string InvalidDigitalSeal {
@@ -133,11 +214,128 @@ namespace FiscalFlow.Application.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El régimen fiscal del emisor &apos;{0}&apos; no existe o no es válido..
+        /// </summary>
+        internal static string InvalidEmisorRegimen {
+            get {
+                return ResourceManager.GetString("InvalidEmisorRegimen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La Forma de Pago &apos;{0}&apos; no es compatible con el Método de Pago &apos;{1}&apos;..
+        /// </summary>
+        internal static string InvalidFormaMetodoPago {
+            get {
+                return ResourceManager.GetString("InvalidFormaMetodoPago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor ObjetoImp &apos;{0}&apos; no existe en el catálogo c_ObjetoImp..
+        /// </summary>
+        internal static string InvalidObjetoImp {
+            get {
+                return ResourceManager.GetString("InvalidObjetoImp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La clave de producto o servicio &apos;{0}&apos; no existe en el catálogo c_ClaveProdServ..
+        /// </summary>
+        internal static string InvalidProductServiceKey {
+            get {
+                return ResourceManager.GetString("InvalidProductServiceKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El régimen fiscal del receptor &apos;{0}&apos; no existe o no es válido..
+        /// </summary>
+        internal static string InvalidReceptorRegimen {
+            get {
+                return ResourceManager.GetString("InvalidReceptorRegimen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El UsoCFDI &apos;{0}&apos; no es válido para el régimen fiscal &apos;{1}&apos;..
+        /// </summary>
+        internal static string InvalidRegimenUsoCfdi {
+            get {
+                return ResourceManager.GetString("InvalidRegimenUsoCfdi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La versión del esquema CFDI no es válida o no es soportada..
         /// </summary>
         internal static string InvalidSchemaVersion {
             get {
                 return ResourceManager.GetString("InvalidSchemaVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La combinación de impuesto &apos;{0}&apos; con TipoFactor &apos;{1}&apos; no es válida..
+        /// </summary>
+        internal static string InvalidTaxCombination {
+            get {
+                return ResourceManager.GetString("InvalidTaxCombination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El TipoFactor &apos;{0}&apos; no existe en el catálogo c_TipoFactor..
+        /// </summary>
+        internal static string InvalidTaxFactor {
+            get {
+                return ResourceManager.GetString("InvalidTaxFactor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El impuesto &apos;{0}&apos; no existe en el catálogo c_Impuesto..
+        /// </summary>
+        internal static string InvalidTaxKey {
+            get {
+                return ResourceManager.GetString("InvalidTaxKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El Tipo de Comprobante &apos;{0}&apos; no permite el valor de Exportación &apos;{1}&apos;..
+        /// </summary>
+        internal static string InvalidTipoComprobanteExportacion {
+            get {
+                return ResourceManager.GetString("InvalidTipoComprobanteExportacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El subtotal, descuentos o total del comprobante no son consistentes..
+        /// </summary>
+        internal static string InvalidTotals {
+            get {
+                return ResourceManager.GetString("InvalidTotals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La clave de unidad &apos;{0}&apos; no existe en el catálogo c_ClaveUnidad..
+        /// </summary>
+        internal static string InvalidUnitKey {
+            get {
+                return ResourceManager.GetString("InvalidUnitKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El UsoCFDI &apos;{0}&apos; no existe o no es válido..
+        /// </summary>
+        internal static string InvalidUsoCfdi {
+            get {
+                return ResourceManager.GetString("InvalidUsoCfdi", resourceCulture);
             }
         }
         
@@ -219,6 +417,24 @@ namespace FiscalFlow.Application.Resources {
         internal static string SealMismatch {
             get {
                 return ResourceManager.GetString("SealMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El ObjetoImp &apos;{0}&apos; requiere la declaración de impuestos..
+        /// </summary>
+        internal static string TaxRequiredByObjetoImp {
+            get {
+                return ResourceManager.GetString("TaxRequiredByObjetoImp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El total de impuestos no coincide con el detalle de los conceptos..
+        /// </summary>
+        internal static string TaxTotalMismatch {
+            get {
+                return ResourceManager.GetString("TaxTotalMismatch", resourceCulture);
             }
         }
         

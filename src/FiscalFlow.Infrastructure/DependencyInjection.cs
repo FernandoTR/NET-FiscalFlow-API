@@ -2,6 +2,7 @@
 using FiscalFlow.Application.Interfaces.Logging;
 using FiscalFlow.Domain.Interfaces.Auth;
 using FiscalFlow.Domain.Interfaces.Common;
+using FiscalFlow.Domain.Interfaces.SatCatalog;
 using FiscalFlow.Domain.Interfaces.Users;
 using FiscalFlow.Infrastructure.Logging;
 using FiscalFlow.Infrastructure.Persistence.Data;
@@ -30,7 +31,7 @@ public static class DependencyInjection
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ILogService, LogService>();
         builder.Services.AddScoped<IAuthTokenRepository, AuthTokenRepository>();
-
+        builder.Services.AddScoped<ISatCatalogRepository, SatCatalogRepository>();
 
         // Security
         builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));

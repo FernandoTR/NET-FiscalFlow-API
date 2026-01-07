@@ -1,5 +1,8 @@
 ﻿using Asp.Versioning;
 using FiscalFlow.Application.DTOs.Cfdi;
+using FiscalFlow.Application.Interfaces.Cfdi;
+using FiscalFlow.Application.Interfaces.Message;
+using FiscalFlow.Application.Interfaces.SatCatalog;
 using FiscalFlow.Application.Interfaces.Validations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +16,19 @@ namespace FiscalFlow.API.Controllers.V1;
 public class CfdiController : Controller
 {
     private readonly ICreateCfdiUseCase _createCfdiUseCase;
+    private readonly ISatCatalogService _satCatalogService;
+    private readonly ICfdiFiscalRulesValidator _fiscalRulesValidator;
+    private readonly IMessageService _messageService;
 
-    public CfdiController(ICreateCfdiUseCase createCfdiUseCase)
+    public CfdiController(ICreateCfdiUseCase createCfdiUseCase, 
+                          ISatCatalogService satCatalogService, 
+                          ICfdiFiscalRulesValidator cfdiFiscalRulesValidator,
+                          IMessageService messageService)
     {
         _createCfdiUseCase = createCfdiUseCase;
+        _satCatalogService = satCatalogService;
+        _fiscalRulesValidator = cfdiFiscalRulesValidator;
+        _messageService = messageService;
     }
 
 
@@ -35,6 +47,20 @@ public class CfdiController : Controller
         {
             return BadRequest(result);
         }
+
+        // validaciones fiscales con catálogos SAT
+        var fiscalErrors = await _fiscalRulesValidator.ValidateAsync(request, cancellationToken);
+
+        if (fiscalErrors.Any())
+        {
+            return BadRequest(new CfdiErrorResponseDto { 
+                IsSuccess=false, 
+                Message = _messageService.GetResourceError("FiscalValidationFailed"), 
+                Errors = fiscalErrors
+            });
+        }
+
+
 
         return Ok(result);
     }

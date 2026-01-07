@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CatalogKeyInactive" xml:space="preserve">
+    <value>La clave '{0}' del catálogo {1} se encuentra inactiva.</value>
+  </data>
+  <data name="CatalogKeyNotFound" xml:space="preserve">
+    <value>La clave '{0}' no existe en el catálogo {1} del SAT.</value>
+  </data>
+  <data name="CertificateExpired" xml:space="preserve">
+    <value>El certificado del emisor se encuentra vencido.</value>
+  </data>
+  <data name="CertificateNotFound" xml:space="preserve">
+    <value>No se encontró un certificado válido para el RFC del emisor.</value>
+  </data>
   <data name="CertificateRevoked" xml:space="preserve">
     <value>El certificado del emisor ha sido revocado.</value>
+  </data>
+  <data name="CertificateRfcMismatch" xml:space="preserve">
+    <value>El RFC del certificado no coincide con el RFC del emisor.</value>
   </data>
   <data name="DuplicateCfdi" xml:space="preserve">
     <value>El comprobante ya fue timbrado previamente.</value>
@@ -129,8 +144,17 @@
   <data name="FailedToFindItem" xml:space="preserve">
     <value>Error al buscar el elemento.</value>
   </data>
+  <data name="FiscalValidationFailed" xml:space="preserve">
+    <value>Se detectaron errores fiscales que impiden timbrar el CFDI.</value>
+  </data>
   <data name="GenericError" xml:space="preserve">
     <value>Lo sentimos ocurrió un error, favor de esperar un momento e intentar de nuevo.</value>
+  </data>
+  <data name="InsufficientStampBalance" xml:space="preserve">
+    <value>No hay saldo de timbres disponible para realizar el timbrado.</value>
+  </data>
+  <data name="InvalidCatalogCombination" xml:space="preserve">
+    <value>La combinación de {0} '{1}' con {2} '{3}' no está permitida por el SAT.</value>
   </data>
   <data name="InvalidCertificate" xml:space="preserve">
     <value>El certificado del emisor es inválido.</value>
@@ -138,11 +162,53 @@
   <data name="InvalidCfdiStructure" xml:space="preserve">
     <value>La estructura del comprobante es incorrecta.</value>
   </data>
+  <data name="InvalidCurrency" xml:space="preserve">
+    <value>La moneda '{0}' no existe en el catálogo c_Moneda.</value>
+  </data>
   <data name="InvalidDigitalSeal" xml:space="preserve">
     <value>El sello digital del comprobante es inválido.</value>
   </data>
+  <data name="InvalidEmisorRegimen" xml:space="preserve">
+    <value>El régimen fiscal del emisor '{0}' no existe o no es válido.</value>
+  </data>
+  <data name="InvalidFormaMetodoPago" xml:space="preserve">
+    <value>La Forma de Pago '{0}' no es compatible con el Método de Pago '{1}'.</value>
+  </data>
+  <data name="InvalidObjetoImp" xml:space="preserve">
+    <value>El valor ObjetoImp '{0}' no existe en el catálogo c_ObjetoImp.</value>
+  </data>
+  <data name="InvalidProductServiceKey" xml:space="preserve">
+    <value>La clave de producto o servicio '{0}' no existe en el catálogo c_ClaveProdServ.</value>
+  </data>
+  <data name="InvalidReceptorRegimen" xml:space="preserve">
+    <value>El régimen fiscal del receptor '{0}' no existe o no es válido.</value>
+  </data>
+  <data name="InvalidRegimenUsoCfdi" xml:space="preserve">
+    <value>El UsoCFDI '{0}' no es válido para el régimen fiscal '{1}'.</value>
+  </data>
   <data name="InvalidSchemaVersion" xml:space="preserve">
     <value>La versión del esquema CFDI no es válida o no es soportada.</value>
+  </data>
+  <data name="InvalidTaxCombination" xml:space="preserve">
+    <value>La combinación de impuesto '{0}' con TipoFactor '{1}' no es válida.</value>
+  </data>
+  <data name="InvalidTaxFactor" xml:space="preserve">
+    <value>El TipoFactor '{0}' no existe en el catálogo c_TipoFactor.</value>
+  </data>
+  <data name="InvalidTaxKey" xml:space="preserve">
+    <value>El impuesto '{0}' no existe en el catálogo c_Impuesto.</value>
+  </data>
+  <data name="InvalidTipoComprobanteExportacion" xml:space="preserve">
+    <value>El Tipo de Comprobante '{0}' no permite el valor de Exportación '{1}'.</value>
+  </data>
+  <data name="InvalidTotals" xml:space="preserve">
+    <value>El subtotal, descuentos o total del comprobante no son consistentes.</value>
+  </data>
+  <data name="InvalidUnitKey" xml:space="preserve">
+    <value>La clave de unidad '{0}' no existe en el catálogo c_ClaveUnidad.</value>
+  </data>
+  <data name="InvalidUsoCfdi" xml:space="preserve">
+    <value>El UsoCFDI '{0}' no existe o no es válido.</value>
   </data>
   <data name="InvalidUuid" xml:space="preserve">
     <value>El UUID generado es inválido.</value>
@@ -170,6 +236,12 @@
   </data>
   <data name="SealMismatch" xml:space="preserve">
     <value>El sello digital no corresponde al certificado utilizado.</value>
+  </data>
+  <data name="TaxRequiredByObjetoImp" xml:space="preserve">
+    <value>El ObjetoImp '{0}' requiere la declaración de impuestos.</value>
+  </data>
+  <data name="TaxTotalMismatch" xml:space="preserve">
+    <value>El total de impuestos no coincide con el detalle de los conceptos.</value>
   </data>
   <data name="TimbradoServiceUnavailable" xml:space="preserve">
     <value>El servicio de timbrado no se encuentra disponible.</value>
