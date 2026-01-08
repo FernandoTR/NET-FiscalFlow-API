@@ -1,12 +1,12 @@
-﻿using FiscalFlow.Domain;
+﻿using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FiscalFlow.Infrastructure.Persistence.Configurations;
 
-public class CfdiXmlConfiguration : IEntityTypeConfiguration<CfdiXml>
+public class CfdiXmlConfiguration : IEntityTypeConfiguration<Cfdi>
 {
-    public void Configure(EntityTypeBuilder<CfdiXml> builder)
+    public void Configure(EntityTypeBuilder<Cfdi> builder)
     {
         builder.HasKey(x => x.Id)
                .HasName("PK__CfdiXml__D14A66895961B32B");
@@ -17,8 +17,8 @@ public class CfdiXmlConfiguration : IEntityTypeConfiguration<CfdiXml>
         builder.Property(x => x.CreatedAt)
                .HasDefaultValueSql("(sysdatetime())");
 
-        builder.HasOne(x => x.Cfdi)
-               .WithMany(c => c.CfdiXmls)
+        builder.HasOne(x => x.User)
+               .WithMany(c => c.Cfdis)
                .OnDelete(DeleteBehavior.ClientSetNull)
                .HasConstraintName("FK__CfdiXml__CfdiId__534D60F1");
     }

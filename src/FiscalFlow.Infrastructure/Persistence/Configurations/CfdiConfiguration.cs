@@ -1,9 +1,6 @@
-﻿using FiscalFlow.Domain;
+﻿using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FiscalFlow.Infrastructure.Persistence.Configurations;
 
@@ -22,7 +19,7 @@ public class CfdiConfiguration : IEntityTypeConfiguration<Cfdi>
 
         builder.HasOne(x => x.User)
                .WithMany(u => u.Cfdis)
-               .OnDelete(DeleteBehavior.ClientSetNull)
+               .OnDelete(DeleteBehavior.Restrict)
                .HasConstraintName("FK__Cfdi__UserId__49C3F6B7");
     }
 }

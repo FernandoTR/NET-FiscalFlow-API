@@ -18,9 +18,9 @@
 
   <ItemGroup>
     <Folder Include="Email\" />
-    <Folder Include="XmlSchemas\CFDI\" />
-    <Folder Include="XmlSchemas\TimbreFiscal\" />
-    <Folder Include="XmlValidation\" />
+    <Folder Include="CfdiXml\Schemas\Cfdi40\" />
+    <Folder Include="CfdiXml\Schemas\TimbreFiscal\" />
+    <Folder Include="CfdiXml\Validation\" />
     <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="CfdiXml\Schemas\Cfdi40\**\*.xsd" />
     <EmbeddedResource Update="Resources\ErrorMessage.resx">
       <LastGenOutput>ErrorMessage.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>

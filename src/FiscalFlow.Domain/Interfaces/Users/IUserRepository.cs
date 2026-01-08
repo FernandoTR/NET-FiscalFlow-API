@@ -1,4 +1,6 @@
-﻿namespace FiscalFlow.Domain.Interfaces.Users;
+﻿using FiscalFlow.Domain.Entities;
+
+namespace FiscalFlow.Domain.Interfaces.Users;
 
 public interface IUserRepository
 {

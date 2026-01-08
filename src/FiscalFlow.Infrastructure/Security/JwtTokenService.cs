@@ -1,7 +1,7 @@
-﻿using FiscalFlow.Application.DTOs;
+﻿
 using FiscalFlow.Application.DTOs.Auth;
 using FiscalFlow.Application.Interfaces.Auth;
-using FiscalFlow.Domain;
+using FiscalFlow.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

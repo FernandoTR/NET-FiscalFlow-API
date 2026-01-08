@@ -19,16 +19,19 @@ public class CfdiController : Controller
     private readonly ICreateCfdiUseCase _createCfdiUseCase;
     private readonly ICfdiFiscalRulesValidator _fiscalRulesValidator;
     private readonly ICfdiTotalsValidator _cfdiTotalsValidator;
+    private readonly ICreateCfdiService _createCfdiService;
 
     public CfdiController(ICreateCfdiUseCase createCfdiUseCase,  
                           ICfdiFiscalRulesValidator cfdiFiscalRulesValidator,
                           IMessagesProvider messagesProvider,
-                          ICfdiTotalsValidator cfdiTotalsValidator)
+                          ICfdiTotalsValidator cfdiTotalsValidator,
+                          ICreateCfdiService createCfdiService)
     {
         _messagesProvider = messagesProvider;
         _createCfdiUseCase = createCfdiUseCase;
         _fiscalRulesValidator = cfdiFiscalRulesValidator;
         _cfdiTotalsValidator = cfdiTotalsValidator;
+        _createCfdiService = createCfdiService;
     }
 
 
@@ -72,6 +75,16 @@ public class CfdiController : Controller
                 Errors = cfdiTotalErrors
             });
         }
+
+        // crear el XML:CFDI
+        var createCfdiResult = await _createCfdiService.Execute(request);
+
+        if (!createCfdiResult.IsSuccess)
+        {
+            return BadRequest(createCfdiResult);
+        }
+
+        // Validar el XML CFDI 4.0 generado contra el XSD oficial del SAT
 
         return Ok(result);
     }

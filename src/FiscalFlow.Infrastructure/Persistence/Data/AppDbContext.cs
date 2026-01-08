@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FiscalFlow.Domain;
-using FiscalFlow.Domain.Entities;
+﻿using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscalFlow.Infrastructure.Persistence.Data;
@@ -33,7 +30,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<CfdiStatusHistory> CfdiStatusHistories { get; set; }
 
-    public virtual DbSet<CfdiXml> CfdiXmls { get; set; }
+    public virtual DbSet<Cfdi> CfdiXmls { get; set; }
 
     public virtual DbSet<EmailLog> EmailLogs { get; set; }
 

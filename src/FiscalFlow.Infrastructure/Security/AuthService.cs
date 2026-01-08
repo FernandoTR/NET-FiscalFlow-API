@@ -1,7 +1,7 @@
-﻿using Azure.Core;
+﻿
 using FiscalFlow.Application.DTOs.Auth;
 using FiscalFlow.Application.Interfaces.Auth;
-using FiscalFlow.Domain;
+using FiscalFlow.Domain.Entities;
 using FiscalFlow.Domain.Interfaces.Auth;
 using FiscalFlow.Domain.Interfaces.Users;
 

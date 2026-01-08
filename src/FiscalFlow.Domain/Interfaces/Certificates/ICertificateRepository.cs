@@ -1,4 +1,5 @@
-﻿
+﻿using FiscalFlow.Domain.Entities;
+
 namespace FiscalFlow.Domain.Interfaces.Certificates;
 
 public interface ICertificateRepository

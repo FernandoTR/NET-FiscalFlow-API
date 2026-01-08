@@ -1,9 +1,6 @@
-﻿using FiscalFlow.Domain;
+﻿using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FiscalFlow.Infrastructure.Persistence.Configurations;
 

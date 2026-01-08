@@ -1,19 +1,21 @@
 ﻿using FiscalFlow.Application.Interfaces.Auth;
 using FiscalFlow.Application.Interfaces.Caching;
+using FiscalFlow.Application.Interfaces.Cfdi;
 using FiscalFlow.Application.Interfaces.Logging;
 using FiscalFlow.Application.Interfaces.Message;
 using FiscalFlow.Application.Interfaces.SatCatalog;
-using FiscalFlow.Infrastructure.Services.SatCatalog;
 using FiscalFlow.Domain.Interfaces.Auth;
 using FiscalFlow.Domain.Interfaces.Common;
 using FiscalFlow.Domain.Interfaces.SatCatalog;
 using FiscalFlow.Domain.Interfaces.Users;
+using FiscalFlow.Infrastructure.CfdiXml;
 using FiscalFlow.Infrastructure.Logging;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using FiscalFlow.Infrastructure.Persistence.Repositories;
 using FiscalFlow.Infrastructure.Security;
 using FiscalFlow.Infrastructure.Services.Caching;
 using FiscalFlow.Infrastructure.Services.MessagesProvider;
+using FiscalFlow.Infrastructure.Services.SatCatalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,6 +55,10 @@ public static class DependencyInjection
         builder.Services.AddScoped<ISatCatalogWarmupService, SatCatalogWarmupService>();
         builder.Services.AddScoped<ISatCatalogService, SatCatalogService>();
         builder.Services.AddScoped<SatCatalogService>();
+        builder.Services.AddScoped<ICfdiXmlBuilder, CfdiXmlBuilder>();
+        builder.Services.AddScoped<ICfdiXsdValidator, CfdiXsdValidator>();
+
+        
 
     }
 

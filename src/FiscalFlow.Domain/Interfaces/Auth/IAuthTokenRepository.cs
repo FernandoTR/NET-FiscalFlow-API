@@ -1,4 +1,6 @@
 ﻿
+using FiscalFlow.Domain.Entities;
+
 namespace FiscalFlow.Domain.Interfaces.Auth;
 
 public interface IAuthTokenRepository

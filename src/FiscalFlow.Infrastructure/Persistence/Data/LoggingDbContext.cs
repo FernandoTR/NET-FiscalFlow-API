@@ -1,4 +1,4 @@
-﻿using FiscalFlow.Domain;
+﻿using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscalFlow.Infrastructure.Persistence.Data;

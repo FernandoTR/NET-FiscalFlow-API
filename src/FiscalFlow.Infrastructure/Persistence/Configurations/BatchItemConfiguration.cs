@@ -1,4 +1,4 @@
-﻿using FiscalFlow.Domain;
+﻿using FiscalFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

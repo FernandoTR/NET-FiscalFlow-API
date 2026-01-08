@@ -1,5 +1,6 @@
 ﻿using FiscalFlow.Application.Interfaces.Cfdi;
 using FiscalFlow.Application.Interfaces.Validations;
+using FiscalFlow.Application.Services.Cfdi;
 using FiscalFlow.Application.Validations.CfdiFiscalRules;
 using FiscalFlow.Application.Validators.Cfdi;
 using FluentValidation;
@@ -24,6 +25,7 @@ public static class DependencyInjection
         builder.Services.AddScoped<ICreateCfdiUseCase, CreateCfdiUseCase>();        
         builder.Services.AddScoped<ICfdiFiscalRulesValidator, CfdiFiscalRulesValidator>();
         builder.Services.AddScoped<ICfdiTotalsValidator, CfdiTotalsValidator>();
+        builder.Services.AddScoped<ICreateCfdiService, CreateCfdiService>();
 
 
 

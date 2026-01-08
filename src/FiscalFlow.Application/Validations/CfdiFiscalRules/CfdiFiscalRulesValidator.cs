@@ -103,19 +103,19 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             });
        
 
-        if (!await _catalogService.IsCombinationAllowedAsync(
-                "c_RegimenFiscal",
-                dto.Receptor.RegimenFiscalReceptor,
-                "c_UsoCFDI",
-                dto.Receptor.UsoCFDI,
-                ct))
-        {
-            errors.Add(new CfdiErrorDetailDto
-            {
-                Field = "Receptor.UsoCFDI",
-                Message = string.Format(_messagesProvider.GetError("InvalidCatalogCombination"), "UsoCFDI", dto.Receptor.UsoCFDI, "RegimenFiscalReceptor", dto.Receptor.RegimenFiscalReceptor)
-            });
-        }
+        //if (!await _catalogService.IsCombinationAllowedAsync(
+        //        "c_RegimenFiscal",
+        //        dto.Receptor.RegimenFiscalReceptor,
+        //        "c_UsoCFDI",
+        //        dto.Receptor.UsoCFDI,
+        //        ct))
+        //{
+        //    errors.Add(new CfdiErrorDetailDto
+        //    {
+        //        Field = "Receptor.UsoCFDI",
+        //        Message = string.Format(_messagesProvider.GetError("InvalidCatalogCombination"), "UsoCFDI", dto.Receptor.UsoCFDI, "RegimenFiscalReceptor", dto.Receptor.RegimenFiscalReceptor)
+        //    });
+        //}
     }
 
     private async Task ValidateConceptosAsync(CreateCfdiRequestDto dto, List<CfdiErrorDetailDto> errors, CancellationToken ct)

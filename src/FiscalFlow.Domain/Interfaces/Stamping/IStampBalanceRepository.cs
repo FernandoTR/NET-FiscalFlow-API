@@ -1,4 +1,5 @@
-﻿
+﻿using FiscalFlow.Domain.Entities;
+
 namespace FiscalFlow.Domain.Interfaces.Stamping;
 
 public interface IStampBalanceRepository

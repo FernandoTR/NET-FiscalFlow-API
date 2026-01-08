@@ -1,4 +1,4 @@
-﻿namespace FiscalFlow.Domain;
+﻿namespace FiscalFlow.Domain.Entities;
 
 public partial class AuthToken
 {

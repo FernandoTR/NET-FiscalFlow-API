@@ -1,5 +1,5 @@
 ﻿using FiscalFlow.Application.Interfaces.Logging;
-using FiscalFlow.Domain;
+using FiscalFlow.Domain.Entities;
 using FiscalFlow.Domain.Interfaces.Auth;
 using FiscalFlow.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
