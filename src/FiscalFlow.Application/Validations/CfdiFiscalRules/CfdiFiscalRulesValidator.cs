@@ -113,7 +113,7 @@ public sealed class CfdiFiscalRulesValidator : ICfdiFiscalRulesValidator
             errors.Add(new CfdiErrorDetailDto
             {
                 Field = "Receptor.UsoCFDI",
-                Message = string.Format(_messagesProvider.GetError("CatalogKeyNotFound"), dto.Receptor.UsoCFDI, dto.Receptor.RegimenFiscalReceptor)
+                Message = string.Format(_messagesProvider.GetError("InvalidCatalogCombination"), "UsoCFDI", dto.Receptor.UsoCFDI, "RegimenFiscalReceptor", dto.Receptor.RegimenFiscalReceptor)
             });
         }
     }

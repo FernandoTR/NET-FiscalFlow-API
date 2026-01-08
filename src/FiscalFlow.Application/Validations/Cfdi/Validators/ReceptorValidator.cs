@@ -22,7 +22,7 @@ public sealed class ReceptorValidator
             .WithMessage("El Régimen Fiscal del receptor debe contener una clave válida de 3 dígitos conforme al catálogo c_RegimenFiscal del SAT.");
 
         RuleFor(x => x.UsoCFDI)
-            .Length(4)
-            .WithMessage("El Uso del CFDI debe contener una clave válida de 4 caracteres conforme al catálogo c_UsoCFDI del SAT.");
+            .Length(3)
+            .WithMessage("El Uso del CFDI debe contener una clave válida de 3 caracteres conforme al catálogo c_UsoCFDI del SAT.");
     }
 }

@@ -15,20 +15,20 @@ namespace FiscalFlow.API.Controllers.V1;
 [Authorize]
 public class CfdiController : Controller
 {
-    private readonly ICreateCfdiUseCase _createCfdiUseCase;
-    private readonly ISatCatalogService _satCatalogService;
-    private readonly ICfdiFiscalRulesValidator _fiscalRulesValidator;
     private readonly IMessagesProvider _messagesProvider;
+    private readonly ICreateCfdiUseCase _createCfdiUseCase;
+    private readonly ICfdiFiscalRulesValidator _fiscalRulesValidator;
+    private readonly ICfdiTotalsValidator _cfdiTotalsValidator;
 
-    public CfdiController(ICreateCfdiUseCase createCfdiUseCase, 
-                          ISatCatalogService satCatalogService, 
+    public CfdiController(ICreateCfdiUseCase createCfdiUseCase,  
                           ICfdiFiscalRulesValidator cfdiFiscalRulesValidator,
-                          IMessagesProvider messagesProvider)
+                          IMessagesProvider messagesProvider,
+                          ICfdiTotalsValidator cfdiTotalsValidator)
     {
-        _createCfdiUseCase = createCfdiUseCase;
-        _satCatalogService = satCatalogService;
-        _fiscalRulesValidator = cfdiFiscalRulesValidator;
         _messagesProvider = messagesProvider;
+        _createCfdiUseCase = createCfdiUseCase;
+        _fiscalRulesValidator = cfdiFiscalRulesValidator;
+        _cfdiTotalsValidator = cfdiTotalsValidator;
     }
 
 
@@ -60,7 +60,18 @@ public class CfdiController : Controller
             });
         }
 
+        // validar los totales de un CFDI
+        var cfdiTotalErrors = _cfdiTotalsValidator.Validate(request);
 
+        if (cfdiTotalErrors.Any())
+        {
+            return BadRequest(new CfdiErrorResponseDto
+            {
+                IsSuccess = false,
+                Message = _messagesProvider.GetError("TotalsValidationFailed"),
+                Errors = cfdiTotalErrors
+            });
+        }
 
         return Ok(result);
     }

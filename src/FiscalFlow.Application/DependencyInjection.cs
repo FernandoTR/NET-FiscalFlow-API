@@ -23,7 +23,9 @@ public static class DependencyInjection
         // Registrar casos de uso
         builder.Services.AddScoped<ICreateCfdiUseCase, CreateCfdiUseCase>();        
         builder.Services.AddScoped<ICfdiFiscalRulesValidator, CfdiFiscalRulesValidator>();
-       
+        builder.Services.AddScoped<ICfdiTotalsValidator, CfdiTotalsValidator>();
+
+
 
 
 
