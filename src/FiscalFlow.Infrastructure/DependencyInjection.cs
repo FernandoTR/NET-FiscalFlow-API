@@ -56,9 +56,11 @@ public static class DependencyInjection
         builder.Services.AddScoped<ISatCatalogService, SatCatalogService>();
         builder.Services.AddScoped<SatCatalogService>();
         builder.Services.AddScoped<ICfdiXmlBuilder, CfdiXmlBuilder>();
+        builder.Services.AddScoped<ICfdiValidateXmlStructure, CfdiValidateXmlStructure>();
         builder.Services.AddScoped<ICfdiXsdValidator, CfdiXsdValidator>();
+        builder.Services.AddScoped<ICadenaOriginalGenerator, CadenaOriginalGenerator>();
 
-        
+
 
     }
 

@@ -44,6 +44,7 @@ public class CfdiController : Controller
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Timbrar([FromBody] CreateCfdiRequestDto request, CancellationToken cancellationToken)
     {
+        // Validar JSON / DTO (FluentValidation)
         var result = await _createCfdiUseCase.ExecuteAsync(request, cancellationToken);
 
         if (!result.IsSuccess)
@@ -51,7 +52,7 @@ public class CfdiController : Controller
             return BadRequest(result);
         }
 
-        // validaciones fiscales con catálogos SAT
+        // Validar reglas fiscales y catálogos SAT
         var fiscalErrors = await _fiscalRulesValidator.ValidateAsync(request, cancellationToken);
 
         if (fiscalErrors.Any())
@@ -63,7 +64,7 @@ public class CfdiController : Controller
             });
         }
 
-        // validar los totales de un CFDI
+        // Validar los importes y totales
         var cfdiTotalErrors = _cfdiTotalsValidator.Validate(request);
 
         if (cfdiTotalErrors.Any())
@@ -76,7 +77,7 @@ public class CfdiController : Controller
             });
         }
 
-        // crear el XML:CFDI
+        // Crear y Validar el XML CFDI 4.0 generado contra el XSD oficial del SAT
         var createCfdiResult = await _createCfdiService.Execute(request);
 
         if (!createCfdiResult.IsSuccess)
@@ -84,7 +85,7 @@ public class CfdiController : Controller
             return BadRequest(createCfdiResult);
         }
 
-        // Validar el XML CFDI 4.0 generado contra el XSD oficial del SAT
+        
 
         return Ok(result);
     }

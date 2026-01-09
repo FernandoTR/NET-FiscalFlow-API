@@ -19,11 +19,8 @@ public class ComprobanteDto
     public string TipoCambio { get; set; }
     public decimal Total { get; set; }
     public string TipoDeComprobante { get; set; } // I, E, T, N, P
+    public string Exportacion { get; set; } 
     public string LugarExpedicion { get; set; } // CP
 
-    //public EmisorDto Emisor { get; set; }
-    //public ReceptorDto Receptor { get; set; }
-    //public List<ConceptoDto> Conceptos { get; set; }
-    //public ImpuestosDto Impuestos { get; set; }
 }
 

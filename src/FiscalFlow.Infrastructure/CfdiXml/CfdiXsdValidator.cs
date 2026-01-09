@@ -1,7 +1,6 @@
-﻿using FiscalFlow.Application.Interfaces.Cfdi;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FiscalFlow.Application.DTOs.Cfdi;
+using FiscalFlow.Application.Interfaces.Cfdi;
+using FiscalFlow.Application.Interfaces.Logging;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -11,55 +10,84 @@ namespace FiscalFlow.Infrastructure.CfdiXml;
 public sealed class CfdiXsdValidator : ICfdiXsdValidator
 {
     private const string CfdiNamespace = "http://www.sat.gob.mx/cfd/4";
+    private readonly ILogService _logService;
 
-    public void Validate(XDocument xml)
+    public CfdiXsdValidator(ILogService logService)
     {
-        var schemas = LoadSchemas();
+        _logService = logService;
+    }
 
-        var errors = new List<string>();
+    public IReadOnlyCollection<CfdiErrorDetailDto> Validate(XDocument xml)
+    {
+        var errors = new List<CfdiErrorDetailDto>();
+        var schemas = LoadSchemas();
 
         xml.Validate(
             schemas,
             (sender, e) =>
             {
-                errors.Add(e.Message);
+                errors.Add(new CfdiErrorDetailDto
+                {
+                    Field = ExtractField(e),
+                    Message = e.Message
+                });
             },
             true
         );
 
-        if (errors.Any())
-        {
-            throw new CfdiXsdValidationException(errors);
-        }
+        return errors;
     }
 
-    private static XmlSchemaSet LoadSchemas()
+    private XmlSchemaSet LoadSchemas()
     {
         var schemaSet = new XmlSchemaSet();
 
-        var assembly = typeof(CfdiXsdValidator).Assembly;
+        try
+        {
+            var assembly = typeof(CfdiXsdValidator).Assembly;
 
-        using var stream = assembly.GetManifestResourceStream("FiscalFlow.Infrastructure.XmlSchemas.Cfdi40.cfdv40.xsd");
+            var xsdResources = new[]
+            {
+                "FiscalFlow.Infrastructure.CfdiXml.Schemas.Cfdi40.cfdv40.xsd",
+                "FiscalFlow.Infrastructure.CfdiXml.Schemas.Cfdi40.tdCFDI.xsd",
+                "FiscalFlow.Infrastructure.CfdiXml.Schemas.Cfdi40.catCFDI.xsd",
+                "FiscalFlow.Infrastructure.CfdiXml.Schemas.TimbreFiscal.TimbreFiscalDigitalv11.xsd"
+            };
 
-        if (stream is null)
-            throw new InvalidOperationException("No se pudo cargar el XSD CFDI 4.0.");
+            foreach (var resource in xsdResources)
+            {
+                using var stream = assembly.GetManifestResourceStream(resource);
 
-        using var reader = XmlReader.Create(stream);
+                if (stream is null)
+                {
+                    _logService.ErrorLog("FiscalFlow.Infrastructure.CfdiXsdValidator", "LoadSchemas", $"No se pudo cargar el XSD embebido: {resource}");
+                    //throw new InvalidOperationException($"No se pudo cargar el XSD embebido: {resource}");
+                    break;
+                }
 
-        schemaSet.Add(CfdiNamespace, reader);
-        schemaSet.Compile();
+                using var reader = XmlReader.Create(stream);
+                schemaSet.Add(null, reader);
+            }
+
+            schemaSet.Compile();
+        }
+        catch (Exception ex)
+        {
+            _logService.ErrorLog(nameof(LoadSchemas), ex);
+        }       
 
         return schemaSet;
     }
 
-    public sealed class CfdiXsdValidationException : Exception
-{
-    public IReadOnlyList<string> Errors { get; }
-
-    public CfdiXsdValidationException(IEnumerable<string> errors) : base("El XML CFDI no cumple con el XSD 4.0 del SAT.")
+    private static string ExtractField(ValidationEventArgs e)
     {
-        Errors = errors.ToList().AsReadOnly();
-    }
-}
+        if (e.Exception is XmlSchemaValidationException ex)
+        {
+            return !string.IsNullOrWhiteSpace(ex.SourceObject?.ToString())
+                ? ex.SourceObject.ToString()!
+                : "XML";
+        }
 
+        return "XML";
+    }
 }

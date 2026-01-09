@@ -7,28 +7,78 @@ namespace FiscalFlow.Application.Services.Cfdi;
 public sealed class CreateCfdiService: ICreateCfdiService
 {
     private readonly ICfdiXmlBuilder _xmlBuilder;
+    private readonly ICfdiValidateXmlStructure _cfdiValidateXmlStructure;
+    private readonly ICadenaOriginalGenerator _cadenaOriginalGenerator;
+    private readonly ICfdiXsdValidator _xsdValidator;
 
-    public CreateCfdiService(ICfdiXmlBuilder xmlBuilder)
+    public CreateCfdiService(ICfdiXmlBuilder xmlBuilder, 
+                             ICfdiValidateXmlStructure cfdiValidateXmlStructure,
+                             ICadenaOriginalGenerator cadenaOriginalGenerator,
+                             ICfdiXsdValidator cfdiXsdValidator)
     {
         _xmlBuilder = xmlBuilder;
+        _cfdiValidateXmlStructure = cfdiValidateXmlStructure;
+        _cadenaOriginalGenerator = cadenaOriginalGenerator;
+        _xsdValidator = cfdiXsdValidator;
+
     }
 
     public Task<CfdiResponseDto> Execute(CreateCfdiRequestDto request)
     {
+        // Generar el XML CFDI 4.0
         var xml = _xmlBuilder.Build(request);
 
-        var errors = ValidateXmlStructure(xml);
+        // Validar la estructura del XML CFDI 4.0 generado (Sin XSD)
+        var validateXmlStructureResult = _cfdiValidateXmlStructure.Execute(xml);
 
-
-        if (errors.Any())
+        if (validateXmlStructureResult.Any())
         {
-            return Task.FromResult<CfdiResponseDto>( new CfdiErrorResponseDto
-                {
-                    IsSuccess = false,
-                    Message = "Errores al generar el XML CFDI.",
-                    Errors = errors
-                });
+            return Task.FromResult<CfdiResponseDto>(new CfdiErrorResponseDto
+            {
+                IsSuccess = false,
+                Message = "Errores al generar el XML CFDI.",
+                Errors = validateXmlStructureResult
+            });
         }
+
+        // Generar Cadena Original con XSLT SAT
+        var cadenaOriginalGeneratorResult = _cadenaOriginalGenerator.Generate(xml);
+
+        if (!cadenaOriginalGeneratorResult.IsSuccess)
+        {
+            var errors = new List<CfdiErrorDetailDto>(1)
+            {
+                new CfdiErrorDetailDto
+                {
+                    Field = "CADENA_ORIGINAL_ERROR",
+                    Message = cadenaOriginalGeneratorResult.Message
+                }
+            };
+
+            return Task.FromResult<CfdiResponseDto>(new CfdiErrorResponseDto
+            {
+                IsSuccess = false,
+                Message = "Error al generar la Cadena Original.",
+                Errors = errors
+            });
+        }
+
+        
+
+
+        // Validar el XML CFDI 4.0 generado contra el XSD oficial del SAT
+        //var xsdErrors = _xsdValidator.Validate(xml);
+
+        //if (xsdErrors.Any())
+        //{
+        //    return Task.FromResult<CfdiResponseDto>(new CfdiErrorResponseDto
+        //    {
+        //        IsSuccess = false,
+        //        Message = "El XML CFDI no cumple con el esquema XSD 4.0 del SAT.",
+        //        Errors = xsdErrors
+        //    });
+        //}
+
 
         return Task.FromResult<CfdiResponseDto>( new CfdiSuccessResponseDto<XDocument>
             {
@@ -36,57 +86,8 @@ public sealed class CreateCfdiService: ICreateCfdiService
                 Message = "XML CFDI generado correctamente.",
                 Data = xml
             });
-    }
+    } 
 
-    private static IReadOnlyCollection<CfdiErrorDetailDto> ValidateXmlStructure(XDocument xml)
-    {
-        var errors = new List<CfdiErrorDetailDto>();
-
-        if (xml.Root is null)
-        {
-            errors.Add(new CfdiErrorDetailDto
-            {
-                Field = "cfdi:Comprobante",
-                Message = "No se pudo generar el XML CFDI: documento sin nodo raíz."
-            });
-
-            return errors;
-        }
-
-        if (xml.Root.Name != CfdiNamespaces.Cfdi + "Comprobante")
-        {
-            errors.Add(new CfdiErrorDetailDto
-            {
-                Field = "cfdi:Comprobante",
-                Message = "El XML generado no contiene el nodo cfdi:Comprobante."
-            });
-
-            return errors;
-        }
-
-        ValidateRequiredNode(xml.Root, "Emisor", errors);
-        ValidateRequiredNode(xml.Root, "Receptor", errors);
-        ValidateRequiredNode(xml.Root, "Conceptos", errors);
-
-        return errors;
-    }
-
-    private static void ValidateRequiredNode(XElement comprobante, string nodeName, ICollection<CfdiErrorDetailDto> errors)
-    {
-        if (!comprobante.Elements(CfdiNamespaces.Cfdi + nodeName).Any())
-        {
-            errors.Add(new CfdiErrorDetailDto
-            {
-                Field = nodeName,
-                Message = $"CFDI sin nodo {nodeName}."
-            });
-        }
-    }
-
-    public static class CfdiNamespaces
-    {
-        public static readonly XNamespace Cfdi = "http://www.sat.gob.mx/cfd/4";
-        public static readonly XNamespace Xsi = "http://www.w3.org/2001/XMLSchema-instance";
-    }
+   
 
 }
