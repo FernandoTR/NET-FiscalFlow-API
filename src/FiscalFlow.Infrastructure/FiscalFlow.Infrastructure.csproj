@@ -51,8 +51,7 @@
   
   <ItemGroup>
     <EmbeddedResource Include="CfdiXml\Schemas\Cfdi40\**\*.xsd" />
-    <EmbeddedResource Include="CfdiXml\Schemas\Xslt\**\*.xslt" />
-    
+    <EmbeddedResource Include="CfdiXml\Schemas\Xslt\**\*.xslt" />  
 
   </ItemGroup>
   

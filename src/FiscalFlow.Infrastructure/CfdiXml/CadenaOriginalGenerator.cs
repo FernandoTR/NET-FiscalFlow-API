@@ -42,7 +42,7 @@ public sealed class CadenaOriginalGenerator : ICadenaOriginalGenerator
             return new CfdiSuccessResponseDto<string>
             {
                 IsSuccess = false,
-                Message = "Error al generar la cadena original: " + ex.Message
+                Message = ex.Message
             };
         }      
        

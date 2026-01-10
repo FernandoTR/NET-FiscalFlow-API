@@ -5,5 +5,5 @@ namespace FiscalFlow.Application.Interfaces.Cfdi;
 
 public interface ICreateCfdiService
 {
-    Task<CfdiResponseDto> Execute(CreateCfdiRequestDto request);
+    CfdiResponseDto Execute(CreateCfdiRequestDto request);
 }

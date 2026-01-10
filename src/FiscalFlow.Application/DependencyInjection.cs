@@ -26,10 +26,7 @@ public static class DependencyInjection
         builder.Services.AddScoped<ICfdiFiscalRulesValidator, CfdiFiscalRulesValidator>();
         builder.Services.AddScoped<ICfdiTotalsValidator, CfdiTotalsValidator>();
         builder.Services.AddScoped<ICreateCfdiService, CreateCfdiService>();
-
-
-
-
+        builder.Services.AddScoped<ICreateAndStampCfdiService, CreateAndStampCfdiService>();
 
     }
 }

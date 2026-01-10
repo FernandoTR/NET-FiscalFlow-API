@@ -15,79 +15,30 @@ namespace FiscalFlow.API.Controllers.V1;
 [Authorize]
 public class CfdiController : Controller
 {
-    private readonly IMessagesProvider _messagesProvider;
-    private readonly ICreateCfdiUseCase _createCfdiUseCase;
-    private readonly ICfdiFiscalRulesValidator _fiscalRulesValidator;
-    private readonly ICfdiTotalsValidator _cfdiTotalsValidator;
-    private readonly ICreateCfdiService _createCfdiService;
+    private readonly ICreateAndStampCfdiService _createAndStampCfdiService;
 
-    public CfdiController(ICreateCfdiUseCase createCfdiUseCase,  
-                          ICfdiFiscalRulesValidator cfdiFiscalRulesValidator,
-                          IMessagesProvider messagesProvider,
-                          ICfdiTotalsValidator cfdiTotalsValidator,
-                          ICreateCfdiService createCfdiService)
+    public CfdiController(ICreateAndStampCfdiService createAndStampCfdiService)
     {
-        _messagesProvider = messagesProvider;
-        _createCfdiUseCase = createCfdiUseCase;
-        _fiscalRulesValidator = cfdiFiscalRulesValidator;
-        _cfdiTotalsValidator = cfdiTotalsValidator;
-        _createCfdiService = createCfdiService;
+        _createAndStampCfdiService = createAndStampCfdiService;
     }
 
 
     /// <summary>
-    /// Timbrado de CFDI 4.0 a partir de JSON (FiscalFlow genera XML, sello y timbre)
+    /// Timbrado de CFDI 4.0 a partir de JSON
+    /// FiscalFlow genera XML, sello y timbre
     /// </summary>
     [HttpPost("timbrar")]
-    [ProducesResponseType(typeof(CreateCfdiRequestDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(typeof(CfdiSuccessResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CfdiErrorResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Timbrar([FromBody] CreateCfdiRequestDto request, CancellationToken cancellationToken)
     {
-        // Validar JSON / DTO (FluentValidation)
-        var result = await _createCfdiUseCase.ExecuteAsync(request, cancellationToken);
+        var result = await _createAndStampCfdiService.ExecuteAsync(request, cancellationToken);
 
         if (!result.IsSuccess)
-        {
             return BadRequest(result);
-        }
 
-        // Validar reglas fiscales y catálogos SAT
-        var fiscalErrors = await _fiscalRulesValidator.ValidateAsync(request, cancellationToken);
-
-        if (fiscalErrors.Any())
-        {
-            return BadRequest(new CfdiErrorResponseDto { 
-                IsSuccess=false, 
-                Message = _messagesProvider.GetError("FiscalValidationFailed"), 
-                Errors = fiscalErrors
-            });
-        }
-
-        // Validar los importes y totales
-        var cfdiTotalErrors = _cfdiTotalsValidator.Validate(request);
-
-        if (cfdiTotalErrors.Any())
-        {
-            return BadRequest(new CfdiErrorResponseDto
-            {
-                IsSuccess = false,
-                Message = _messagesProvider.GetError("TotalsValidationFailed"),
-                Errors = cfdiTotalErrors
-            });
-        }
-
-        // Crear y Validar el XML CFDI 4.0 generado contra el XSD oficial del SAT
-        var createCfdiResult = await _createCfdiService.Execute(request);
-
-        if (!createCfdiResult.IsSuccess)
-        {
-            return BadRequest(createCfdiResult);
-        }
-
-        
-
-        return Ok(result);
+        return Ok(result);     
     }
 
 
