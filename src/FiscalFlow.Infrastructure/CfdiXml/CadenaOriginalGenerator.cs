@@ -53,19 +53,25 @@ public sealed class CadenaOriginalGenerator : ICadenaOriginalGenerator
     {
         var assembly = typeof(CadenaOriginalGenerator).Assembly;
 
-        using var stream = assembly.GetManifestResourceStream("FiscalFlow.Infrastructure.CfdiXml.Schemas.Cfdi40.cadenaoriginal_4_0.xslt");
+        const string baseNamespace = "FiscalFlow.Infrastructure.CfdiXml.Schemas.Xslt";
+
+        using var stream = assembly.GetManifestResourceStream($"{baseNamespace}.cadenaoriginal_4_0.xslt");
 
         if (stream is null)
         {
             _logService.ErrorLog("FiscalFlow.Infrastructure.CadenaOriginalGenerator", "LoadXslt", $"No se pudo cargar el XSD embebido: cadenaoriginal_4_0.xslt");
             throw new InvalidOperationException("No se pudo cargar el XSLT oficial del SAT.");
-        }
-           
+        }       
+
+        var settings = new XsltSettings(enableDocumentFunction: false, enableScript: false);
+        var resolver = new EmbeddedXsltResolver(assembly, baseNamespace);
 
         using var reader = XmlReader.Create(stream);
 
+        var names = assembly.GetManifestResourceNames();
+
         var xslt = new XslCompiledTransform();
-        xslt.Load(reader);
+        xslt.Load(reader, settings, resolver);
 
         return xslt;
     }

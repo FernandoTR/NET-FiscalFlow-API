@@ -50,7 +50,7 @@ public sealed class CreateCfdiService: ICreateCfdiService
             {
                 new CfdiErrorDetailDto
                 {
-                    Field = "CADENA_ORIGINAL_ERROR",
+                    Field = "Cadena Original",
                     Message = cadenaOriginalGeneratorResult.Message
                 }
             };

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CfdiXml\Schemas\Xslt\" />
     <Folder Include="Email\" />
     <Folder Include="CfdiXml\Schemas\Cfdi40\" />
     <Folder Include="CfdiXml\Schemas\TimbreFiscal\" />
@@ -50,9 +51,11 @@
   
   <ItemGroup>
     <EmbeddedResource Include="CfdiXml\Schemas\Cfdi40\**\*.xsd" />
-    <EmbeddedResource Include="CfdiXml\Schemas\Cfdi40\cadenaoriginal_4_0.xslt" />
-  </ItemGroup>
+    <EmbeddedResource Include="CfdiXml\Schemas\Xslt\**\*.xslt" />
+    
 
+  </ItemGroup>
+  
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
